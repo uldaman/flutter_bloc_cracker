@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'bloc_event_state.dart';
 
 typedef Widget AsyncBlocEventStateBuilder<BlocState>(
-    BuildContext context, BlocState state);
+  BuildContext context,
+  BlocEventStateBase<BlocState> bloc,
+  BlocState state,
+  Widget child,
+);
 
-class BlocConsumer<State, Event extends BlocEvent<State>>
+class BlocConsumer<BlocState, Bloc extends BlocEventStateBase<BlocState>>
     extends StatelessWidget {
   const BlocConsumer({
     Key key,
     @required this.builder,
-    @required this.bloc,
+    this.child,
   })  : assert(builder != null),
-        assert(bloc != null),
         super(key: key);
 
-  final BlocEventStateBase<State, Event> bloc;
-  final AsyncBlocEventStateBuilder<State> builder;
+  final AsyncBlocEventStateBuilder<BlocState> builder;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<State>(
-      stream: bloc.state,
-      initialData: bloc.initialState,
-      builder: (BuildContext context, AsyncSnapshot<State> snapshot) =>
-          builder(context, snapshot.data),
+    return Consumer<Bloc>(
+      child: child,
+      builder: (context, bloc, child) {
+        return StreamBuilder<BlocState>(
+          stream: bloc.state,
+          initialData: bloc.initialState,
+          builder: (BuildContext context, AsyncSnapshot<BlocState> snapshot) =>
+              builder(context, bloc, snapshot.data, child),
+        );
+      },
     );
   }
 }

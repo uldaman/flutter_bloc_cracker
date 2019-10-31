@@ -10,26 +10,28 @@ abstract class BlocEvent<BlocState> extends Object {
 }
 
 @immutable
-abstract class BlocEventStateBase<State, Event extends BlocEvent<State>>
-    implements BlocBase {
+abstract class BlocEventStateBase<BlocState> implements BlocBase {
   BlocEventStateBase() {
-    _eventController.listen((Event event) {
-      State currentState = _stateController.value ?? initialState;
-      eventHandler(event, currentState).forEach((State newState) {
+    _eventController.listen((BlocEvent<BlocState> event) {
+      BlocState currentState = _stateController.value ?? initialState;
+      eventHandler(event, currentState).forEach((BlocState newState) {
         _stateController.sink.add(newState);
       });
     });
   }
 
-  final PublishSubject<Event> _eventController = PublishSubject<Event>();
-  final BehaviorSubject<State> _stateController = BehaviorSubject<State>();
+  final PublishSubject<BlocEvent<BlocState>> _eventController =
+      PublishSubject<BlocEvent<BlocState>>();
+  final BehaviorSubject<BlocState> _stateController =
+      BehaviorSubject<BlocState>();
 
-  Function(Event) get emit => _eventController.sink.add;
-  Observable<State> get state => _stateController;
+  Function(BlocEvent<BlocState>) get emit => _eventController.sink.add;
+  Observable<BlocState> get state => _stateController;
 
-  State get initialState;
+  BlocState get initialState;
 
-  Stream<State> eventHandler(Event event, State currentState) =>
+  Stream<BlocState> eventHandler(
+          BlocEvent<BlocState> event, BlocState currentState) =>
       event.handleEvent(currentState);
 
   @mustCallSuper
