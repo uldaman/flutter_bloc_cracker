@@ -10,8 +10,8 @@ abstract class BlocEvent<BlocState> extends Object {
 }
 
 @immutable
-abstract class BlocEventStateBase<BlocState> implements BlocBase {
-  BlocEventStateBase() {
+abstract class BlocCrackerBase<BlocState> implements BlocBase {
+  BlocCrackerBase() {
     _eventController.listen((BlocEvent<BlocState> event) {
       BlocState currentState = _stateController.value ?? initialState;
       eventHandler(event, currentState).forEach((BlocState newState) {

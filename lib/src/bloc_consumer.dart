@@ -4,12 +4,12 @@ import 'bloc_event_state.dart';
 
 typedef Widget AsyncBlocEventStateBuilder<BlocState>(
   BuildContext context,
-  BlocEventStateBase<BlocState> bloc,
+  BlocCrackerBase<BlocState> bloc,
   BlocState state,
   Widget child,
 );
 
-class BlocConsumer<BlocState, Bloc extends BlocEventStateBase<BlocState>>
+class BlocConsumer<BlocState, Bloc extends BlocCrackerBase<BlocState>>
     extends StatelessWidget {
   const BlocConsumer({
     Key key,
