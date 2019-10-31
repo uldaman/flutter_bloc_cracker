@@ -1,12 +1,17 @@
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
+abstract class BlocBase {
+  void dispose();
+}
+
 abstract class BlocEvent<BlocState> extends Object {
   Stream<BlocState> handleEvent(BlocState currentState);
 }
 
 @immutable
-abstract class BlocEventStateBase<State, Event extends BlocEvent<State>> {
+abstract class BlocEventStateBase<State, Event extends BlocEvent<State>>
+    implements BlocBase {
   BlocEventStateBase() {
     _eventController.listen((Event event) {
       State currentState = _stateController.value ?? initialState;
