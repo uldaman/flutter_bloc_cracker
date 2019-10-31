@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
 
 import '../blocs/bloc_auth.dart';
 
@@ -13,7 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthenticationBloc bloc = Provider.of<AuthenticationBloc>(context);
+    final AuthenticationBloc bloc =
+        BlocProvider.of<AuthenticationBloc>(context);
     return WillPopScope(
       onWillPop: _onWillPopScope,
       child: SafeArea(

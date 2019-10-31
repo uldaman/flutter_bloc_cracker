@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
 
-class AuthenticationBloc
-    extends BlocEventStateBase<AuthenticationState, AuthenticationEvent> {
+class AuthenticationBloc extends BlocEventStateBase<AuthenticationState> {
   @override
   AuthenticationState get initialState =>
       AuthenticationState.notAuthenticated();
