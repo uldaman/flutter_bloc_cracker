@@ -1,8 +1,8 @@
 name: flutter_bloc_cracker
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: An interesting state management framework that helps implement BLoC (Business Logic Components).
+version: 0.0.3
+author: Hanxiao <zhuec@hotmail.com>
+homepage: https://github.com/uldaman/flutter_bloc_cracker
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  meta: ^1.1.7
   rxdart: ^0.22.4
   provider: ^3.1.0+1
 
