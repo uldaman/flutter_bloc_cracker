@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
-
-import 'blocs/bloc_auth.dart';
-import 'views/decision_page.dart';
+import 'package:flutter_bloc_cracker_example/blocs/authentication/bloc.dart';
+import 'package:flutter_bloc_cracker_example/views/decision_page.dart';
 
 void main() => runApp(MyApp());
 

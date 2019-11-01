@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
-
-import '../blocs/bloc_auth.dart';
+import 'package:flutter_bloc_cracker_example/blocs/authentication/bloc.dart';
 
 class HomePage extends StatelessWidget {
   ///
@@ -10,6 +9,10 @@ class HomePage extends StatelessWidget {
   Future<bool> _onWillPopScope() async {
     return false;
   }
+
+  const HomePage(this.userName);
+
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +28,17 @@ class HomePage extends StatelessWidget {
           ),
           body: Container(
             child: Center(
-              child: IconButton(
-                icon: Icon(Icons.exit_to_app),
-                onPressed: () {
-                  bloc.emit(AuthenticationEventLogout());
-                },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('current user: $userName'),
+                  IconButton(
+                    icon: Icon(Icons.exit_to_app),
+                    onPressed: () {
+                      bloc.emit(AuthenticationEventLogout());
+                    },
+                  ),
+                ],
               ),
             ),
           ),

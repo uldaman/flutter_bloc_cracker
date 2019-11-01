@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
-
-import '../blocs/bloc_auth.dart';
-import 'auth_page.dart';
-import 'home_page.dart';
+import 'package:flutter_bloc_cracker_example/blocs/authentication/bloc.dart';
+import 'package:flutter_bloc_cracker_example/views/auth_page.dart';
+import 'package:flutter_bloc_cracker_example/views/home_page.dart';
 
 class DecisionPage extends StatefulWidget {
   @override
@@ -20,11 +19,9 @@ class DecisionPageState extends State<DecisionPage> {
         if (state != oldAuthenticationState) {
           oldAuthenticationState = state;
 
-          if (state.isAuthenticated) {
-            _redirectToPage(context, HomePage());
-          } else if (state.isAuthenticating || state.hasFailed) {
-            //do nothing
-          } else {
+          if (state is AuthenticationAuthenticated) {
+            _redirectToPage(context, HomePage(state.name));
+          } else if (state is AuthenticationNotAuthenticated) {
             _redirectToPage(context, AuthenticationPage());
           }
         }

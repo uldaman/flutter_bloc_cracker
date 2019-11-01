@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
-
-import '../blocs/bloc_auth.dart';
+import 'package:flutter_bloc_cracker_example/blocs/authentication/bloc.dart';
 
 class AuthenticationPage extends StatelessWidget {
   ///
@@ -23,13 +22,15 @@ class AuthenticationPage extends StatelessWidget {
           ),
           body: BlocConsumer<AuthenticationState, AuthenticationBloc>(
             builder: (context, bloc, state, _) {
-              if (state.isAuthenticating) {
+              if (state is AuthenticationAuthenticating) {
                 return Container(
-                  child: Center(child: Text('authenticating...')),
+                  child: Center(
+                    child: Text('authenticating...'),
+                  ),
                 );
               }
 
-              if (state.isAuthenticated) {
+              if (state is AuthenticationAuthenticated) {
                 return Container();
               }
 
@@ -62,7 +63,7 @@ class AuthenticationPage extends StatelessWidget {
               );
 
               // Display a text if the authentication failed
-              if (state.hasFailed) {
+              if (state is AuthenticationFailure) {
                 children.add(Text('Authentication failure!'));
               }
 
