@@ -1,6 +1,6 @@
 name: flutter_bloc_cracker
 description: An interesting state management framework that helps implement BLoC (Business Logic Components).
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/uldaman/flutter_bloc_cracker
 
 environment:
