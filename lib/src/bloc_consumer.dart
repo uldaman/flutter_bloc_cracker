@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'bloc_event_state.dart';
 
-typedef Widget AsyncBlocEventStateBuilder<BlocState>(
+typedef AsyncBlocEventStateBuilder<BlocState,
+        Bloc extends BlocCrackerBase<BlocState>>
+    = Widget Function(
   BuildContext context,
-  BlocCrackerBase<BlocState> bloc,
   BlocState state,
+  Bloc bloc,
   Widget child,
 );
 
@@ -18,7 +20,7 @@ class BlocConsumer<BlocState, Bloc extends BlocCrackerBase<BlocState>>
   })  : assert(builder != null),
         super(key: key);
 
-  final AsyncBlocEventStateBuilder<BlocState> builder;
+  final AsyncBlocEventStateBuilder<BlocState, Bloc> builder;
   final Widget child;
 
   @override
@@ -30,7 +32,7 @@ class BlocConsumer<BlocState, Bloc extends BlocCrackerBase<BlocState>>
           stream: bloc.state,
           initialData: bloc.initialState,
           builder: (BuildContext context, AsyncSnapshot<BlocState> snapshot) =>
-              builder(context, bloc, snapshot.data, child),
+              builder(context, snapshot.data, bloc, child),
         );
       },
     );

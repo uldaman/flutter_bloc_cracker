@@ -6,7 +6,10 @@ abstract class BlocBase {
 }
 
 abstract class BlocEvent<BlocState> extends Object {
-  Stream<BlocState> handleEvent(BlocState currentState);
+  Stream<BlocState> handleEvent(
+    BlocCrackerBase<BlocState> bloc,
+    BlocState currentState,
+  );
 }
 
 @immutable
@@ -14,9 +17,9 @@ abstract class BlocCrackerBase<BlocState> implements BlocBase {
   BlocCrackerBase() {
     _eventController.listen((BlocEvent<BlocState> event) {
       BlocState currentState = _stateController.value ?? initialState;
-      eventHandler(event, currentState).forEach((BlocState newState) {
-        _stateController.sink.add(newState);
-      });
+      eventHandler(event, currentState).forEach(
+        (BlocState newState) => _stateController.sink.add(newState),
+      );
     });
   }
 
@@ -31,8 +34,10 @@ abstract class BlocCrackerBase<BlocState> implements BlocBase {
   BlocState get initialState;
 
   Stream<BlocState> eventHandler(
-          BlocEvent<BlocState> event, BlocState currentState) =>
-      event.handleEvent(currentState);
+    BlocEvent<BlocState> event,
+    BlocState currentState,
+  ) =>
+      event.handleEvent(this, currentState);
 
   @mustCallSuper
   void dispose() {

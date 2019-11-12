@@ -17,8 +17,8 @@ class BlocProvider<Bloc extends BlocBase> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<Bloc>(
-      builder: (context) => bloc,
-      dispose: (context, value) => value.dispose(),
+      builder: (_) => bloc,
+      dispose: (_, value) => value.dispose(),
       child: child,
     );
   }

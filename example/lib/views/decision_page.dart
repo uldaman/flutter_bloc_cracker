@@ -15,7 +15,7 @@ class DecisionPageState extends State<DecisionPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationState, AuthenticationBloc>(
-      builder: (context, _, state, child) {
+      builder: (context, state, _, child) {
         if (state != oldAuthenticationState) {
           oldAuthenticationState = state;
 

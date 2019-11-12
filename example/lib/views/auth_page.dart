@@ -21,7 +21,7 @@ class AuthenticationPage extends StatelessWidget {
             leading: Container(),
           ),
           body: BlocConsumer<AuthenticationState, AuthenticationBloc>(
-            builder: (context, bloc, state, _) {
+            builder: (_, state, bloc, __) {
               if (state is AuthenticationAuthenticating) {
                 return Container(
                   child: Center(

@@ -11,7 +11,9 @@ class AuthenticationEventLogin extends AuthenticationEvent {
 
   @override
   Stream<AuthenticationState> handleEvent(
-      AuthenticationState currentState) async* {
+    BlocCrackerBase<AuthenticationState> bloc,
+    AuthenticationState currentState,
+  ) async* {
     // Inform that we are proceeding with the authentication
     yield AuthenticationAuthenticating();
 
@@ -30,7 +32,9 @@ class AuthenticationEventLogin extends AuthenticationEvent {
 class AuthenticationEventLogout extends AuthenticationEvent {
   @override
   Stream<AuthenticationState> handleEvent(
-      AuthenticationState currentState) async* {
+    BlocCrackerBase<AuthenticationState> bloc,
+    AuthenticationState currentState,
+  ) async* {
     yield AuthenticationNotAuthenticated();
   }
 }
