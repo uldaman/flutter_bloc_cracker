@@ -1,7 +1,9 @@
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
+import 'package:flutter_bloc_cracker_example/blocs/authentication/bloc.dart';
 import 'package:flutter_bloc_cracker_example/blocs/authentication/state.dart';
 
-abstract class AuthenticationEvent extends BlocEvent<AuthenticationState> {
+abstract class AuthenticationEvent
+    extends BlocEvent<AuthenticationState, AuthenticationBloc> {
   AuthenticationEvent({this.name: ''});
   final String name;
 }
@@ -11,7 +13,7 @@ class AuthenticationEventLogin extends AuthenticationEvent {
 
   @override
   Stream<AuthenticationState> handleEvent(
-    BlocCrackerBase<AuthenticationState> bloc,
+    AuthenticationBloc bloc,
     AuthenticationState currentState,
   ) async* {
     // Inform that we are proceeding with the authentication
@@ -32,7 +34,7 @@ class AuthenticationEventLogin extends AuthenticationEvent {
 class AuthenticationEventLogout extends AuthenticationEvent {
   @override
   Stream<AuthenticationState> handleEvent(
-    BlocCrackerBase<AuthenticationState> bloc,
+    AuthenticationBloc bloc,
     AuthenticationState currentState,
   ) async* {
     yield AuthenticationNotAuthenticated();

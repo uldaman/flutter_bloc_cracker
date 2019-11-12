@@ -5,17 +5,14 @@ abstract class BlocBase {
   void dispose();
 }
 
-abstract class BlocEvent<BlocState> extends Object {
-  Stream<BlocState> handleEvent(
-    BlocCrackerBase<BlocState> bloc,
-    BlocState currentState,
-  );
+abstract class BlocEvent<BlocState, Bloc extends BlocCrackerBase<BlocState>> {
+  Stream<BlocState> handleEvent(Bloc bloc, BlocState currentState);
 }
 
 @immutable
 abstract class BlocCrackerBase<BlocState> implements BlocBase {
   BlocCrackerBase() {
-    _eventController.listen((BlocEvent<BlocState> event) {
+    _eventController.listen((BlocEvent event) {
       BlocState currentState = _stateController.value ?? initialState;
       eventHandler(event, currentState).forEach(
         (BlocState newState) => _stateController.sink.add(newState),
@@ -23,20 +20,17 @@ abstract class BlocCrackerBase<BlocState> implements BlocBase {
     });
   }
 
-  final PublishSubject<BlocEvent<BlocState>> _eventController =
-      PublishSubject<BlocEvent<BlocState>>();
+  final PublishSubject<BlocEvent> _eventController =
+      PublishSubject<BlocEvent>();
   final BehaviorSubject<BlocState> _stateController =
       BehaviorSubject<BlocState>();
 
-  Function(BlocEvent<BlocState>) get emit => _eventController.sink.add;
+  Function(BlocEvent) get emit => _eventController.sink.add;
   Observable<BlocState> get state => _stateController;
 
   BlocState get initialState;
 
-  Stream<BlocState> eventHandler(
-    BlocEvent<BlocState> event,
-    BlocState currentState,
-  ) =>
+  Stream<BlocState> eventHandler(BlocEvent event, BlocState currentState) =>
       event.handleEvent(this, currentState);
 
   @mustCallSuper
