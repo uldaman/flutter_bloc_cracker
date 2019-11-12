@@ -11,17 +11,24 @@ typedef AsyncBlocEventStateBuilder<BlocState,
   Widget child,
 );
 
+typedef BlocBuilderEquals<BlocState> = bool Function(
+  BlocState previous,
+  BlocState current,
+);
+
 class BlocConsumer<BlocState, Bloc extends BlocCrackerBase<BlocState>>
     extends StatelessWidget {
   const BlocConsumer({
     Key key,
     @required this.builder,
     this.child,
+    this.distinct,
   })  : assert(builder != null),
         super(key: key);
 
   final AsyncBlocEventStateBuilder<BlocState, Bloc> builder;
   final Widget child;
+  final BlocBuilderEquals<BlocState> distinct;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class BlocConsumer<BlocState, Bloc extends BlocCrackerBase<BlocState>>
       child: child,
       builder: (context, bloc, child) {
         return StreamBuilder<BlocState>(
-          stream: bloc.state,
+          stream: distinct != null ? bloc.state.distinct(distinct) : bloc.state,
           initialData: bloc.initialState,
           builder: (BuildContext context, AsyncSnapshot<BlocState> snapshot) =>
               builder(context, snapshot.data, bloc, child),
