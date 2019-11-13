@@ -29,6 +29,7 @@ class Timer extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 60,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Courier New',
                     ),
                   );
                 },
