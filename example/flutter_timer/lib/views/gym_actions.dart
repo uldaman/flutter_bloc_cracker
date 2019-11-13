@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
 import 'package:flutter_timer/blocs/bloc.dart';
 import 'package:flutter_timer/blocs/event.dart';
@@ -45,13 +46,18 @@ class GymActions extends StatelessWidget {
             ),
           ];
 
-        if (state is Finished)
+        if (state is Finished) {
+          FlutterRingtonePlayer.play(
+            android: AndroidSounds.notification,
+            ios: IosSound(1031),
+          );
           children = [
             FloatingActionButton(
               child: Icon(Icons.replay),
               onPressed: () => bloc.emit(Reset()),
             ),
           ];
+        }
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

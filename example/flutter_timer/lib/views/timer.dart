@@ -7,38 +7,35 @@ import 'package:flutter_timer/views/gym_actions.dart';
 class Timer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Flutter Timer')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 100.0),
-            child: Center(
-              child: BlocConsumer<TimerState, TimerBloc>(
-                builder: (_, TimerState state, __, ___) {
-                  final String minutesStr = ((state.duration / 60) % 60)
-                      .floor()
-                      .toString()
-                      .padLeft(2, '0');
-                  final String secondsStr =
-                      (state.duration % 60).floor().toString().padLeft(2, '0');
-                  return Text(
-                    '$minutesStr:$secondsStr',
-                    style: TextStyle(
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Courier New',
-                    ),
-                  );
-                },
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 50.0),
+          child: Center(
+            child: BlocConsumer<TimerState, TimerBloc>(
+              builder: (_, TimerState state, __, ___) {
+                final String minutesStr = ((state.duration / 60) % 60)
+                    .floor()
+                    .toString()
+                    .padLeft(2, '0');
+                final String secondsStr =
+                    (state.duration % 60).floor().toString().padLeft(2, '0');
+                return Text(
+                  '$minutesStr:$secondsStr',
+                  style: TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Courier New',
+                  ),
+                );
+              },
             ),
           ),
-          GymActions(),
-        ],
-      ),
+        ),
+        GymActions(),
+      ],
     );
   }
 }

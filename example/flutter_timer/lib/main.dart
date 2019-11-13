@@ -10,27 +10,36 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final TimerBloc _timerBloc = TimerBloc(60);
+  final TimerBloc _timerBloc1 = TimerBloc(60);
+  final TimerBloc _timerBloc2 = TimerBloc(30);
 
   @override
   Widget build(BuildContext context) {
+    final Color primaryColor = Color.fromRGBO(109, 234, 255, 1);
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(109, 234, 255, 1),
+        primaryColor: primaryColor,
         accentColor: Color.fromRGBO(72, 74, 126, 1),
         brightness: Brightness.dark,
       ),
       title: 'Flutter Timer',
-      home: BlocProvider(
-        bloc: _timerBloc,
-        child: Timer(),
+      home: Scaffold(
+        appBar: AppBar(title: Text('Flutter Timer')),
+        body: Column(
+          children: <Widget>[
+            Expanded(child: BlocProvider(bloc: _timerBloc1, child: Timer())),
+            Divider(color: primaryColor, thickness: 1),
+            Expanded(child: BlocProvider(bloc: _timerBloc2, child: Timer())),
+          ],
+        ),
       ),
     );
   }
 
   @override
   void dispose() {
-    _timerBloc.dispose();
+    _timerBloc1.dispose();
+    _timerBloc2.dispose();
     super.dispose();
   }
 }
