@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:flutter_timer/blocs/bloc.dart';
-import 'package:flutter_timer/blocs/state.dart';
+import 'package:flutter_timer/blocs/timer/bloc.dart';
+import 'package:flutter_timer/blocs/timer/state.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
 
 @immutable

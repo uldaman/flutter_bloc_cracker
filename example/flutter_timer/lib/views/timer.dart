@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
-import 'package:flutter_timer/blocs/bloc.dart';
-import 'package:flutter_timer/blocs/state.dart';
+import 'package:flutter_timer/blocs/timer/bloc.dart';
+import 'package:flutter_timer/blocs/timer/state.dart';
+import 'package:flutter_timer/views/counter.dart';
 import 'package:flutter_timer/views/gym_actions.dart';
 
 class Timer extends StatelessWidget {
@@ -11,6 +12,7 @@ class Timer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        Counter(),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 50.0),
           child: Center(

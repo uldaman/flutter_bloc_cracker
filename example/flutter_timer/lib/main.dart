@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timer/blocs/counter/bloc.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter_bloc_cracker/flutter_bloc_cracker.dart';
-import 'package:flutter_timer/blocs/bloc.dart';
+import 'package:flutter_timer/blocs/timer/bloc.dart';
 import 'package:flutter_timer/views/timer.dart';
 
 void main() => runApp(MyApp());
@@ -11,7 +12,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final CounterBloc _counterBloc1 = CounterBloc();
   final TimerBloc _timerBloc1 = TimerBloc(60);
+  final CounterBloc _counterBloc2 = CounterBloc();
   final TimerBloc _timerBloc2 = TimerBloc(30);
 
   @override
@@ -19,6 +22,15 @@ class _MyAppState extends State<MyApp> {
     Wakelock.enable();
     super.initState();
   }
+
+  Widget buildProvider(TimerBloc timer, CounterBloc counter) =>
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(bloc: counter),
+          BlocProvider(bloc: timer),
+        ],
+        child: Timer(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +46,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(title: Text('Flutter Timer')),
         body: Column(
           children: <Widget>[
-            Expanded(child: BlocProvider(bloc: _timerBloc1, child: Timer())),
+            Expanded(child: buildProvider(_timerBloc1, _counterBloc1)),
             Divider(color: primaryColor, thickness: 1),
-            Expanded(child: BlocProvider(bloc: _timerBloc2, child: Timer())),
+            Expanded(child: buildProvider(_timerBloc2, _counterBloc2)),
           ],
         ),
       ),
